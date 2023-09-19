@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.demo.app.configuration.JwtRequestFilter;
+import com.demo.app.model.Cart;
 import com.demo.app.model.OrderDetail;
 import com.demo.app.model.OrderInput;
 import com.demo.app.model.OrderProductQuantity;
 import com.demo.app.model.Product;
 import com.demo.app.model.User;
+import com.demo.app.repository.CartDao;
 import com.demo.app.repository.OrderDetailDao;
 import com.demo.app.repository.ProductDao;
 import com.demo.app.repository.UserDao;
@@ -30,8 +32,10 @@ public class OrderDetailService {
 	@Autowired
 	private UserDao userDao;
 	
+	@Autowired
+	private CartDao cartDao;
 
-	public void placeOrder(OrderInput orderInput) {
+	public void placeOrder(OrderInput orderInput, boolean isSingleProductCheckout) {
 	   	List<OrderProductQuantity> productQuantityList = orderInput.getOrderProductQuantityList();
 	   	
 	   	for(OrderProductQuantity O: productQuantityList) {
@@ -49,6 +53,14 @@ public class OrderDetailService {
 	   				product,
 	   				user
 	   				);
+	   		
+	   		//To empty the cart after place order
+	   		if(!isSingleProductCheckout) {
+	   			List<Cart> carts =  cartDao.findByUser(user);
+	   			carts.stream().forEach(x-> cartDao.deleteById(x.getCartId()));
+	   					
+	   		}
+	   		
 	   		orderDetailDao.save(orderDetail);
 	   	}
 	}

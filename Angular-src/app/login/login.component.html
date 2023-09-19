@@ -1,0 +1,21 @@
+<div class="container mt-5 ">
+    <div class="card" style="width: 30vw; margin-left: auto; margin-right: auto;">
+        <h2 class="text-center pt-3">Login</h2>
+        <form class="container p-4" #loginform="ngForm" (ngSubmit)="login(loginform)"  style="width: 25vw;">
+            <div class="mb-3 mt-3">
+              <label for="userName" class="form-label">Username </label>
+              <input type="email" class="form-control" id="userName" placeholder="Enter username" name="userName" ngModel >
+            </div>
+            <div class="mb-3">
+              <label for="userPassword" class="form-label">Password </label>
+              <input type="password" class="form-control" id="userPassword" placeholder="Enter password" name="userPassword" ngModel>
+            </div>
+            <div class="button d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary me-3">Submit</button>
+                <button type="reset" class="btn btn-warning">Reset</button>
+            </div>
+            
+          </form>
+    </div>
+    
+</div>

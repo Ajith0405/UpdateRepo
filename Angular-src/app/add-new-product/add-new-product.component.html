@@ -1,0 +1,58 @@
+<div class="container mt-5">
+    <h2 align="center" *ngIf="isNewProduct">Add New Product</h2>
+    <h2 align="center" *ngIf="!isNewProduct">Update Product</h2>
+  <div class="card p-2">
+    <div class="row">
+      <div class="col-6">
+        <form #productForm="ngForm" (ngSubmit)="addProduct(productForm)">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Product Name </mat-label>
+            <input matInput placeholder="Product Name" name="productName" [(ngModel)]="product.productName" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Product Description</mat-label>
+            <input matInput placeholder="Product Description" name="productDescription"  [(ngModel)]="product.productDescription" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Product Actual Price</mat-label>
+            <input matInput placeholder="Product Actual Price" name="productActualPrice"  [(ngModel)]="product.productActualPrice" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Product Discounted Price</mat-label>
+            <input matInput placeholder="Product Discounted Price" name="productDiscountedPrice"  [(ngModel)]="product.productDiscountedPrice" />
+          </mat-form-field>
+          <div align="end">
+            <button *ngIf="isNewProduct" type="submit" class="me-2" mat-raised-button >
+              Add Product
+            </button>
+            <button *ngIf="!isNewProduct"  type="submit" class="me-2" mat-raised-button >
+              Update Product
+            </button>
+            <button type="reset"  color="accent" mat-raised-button >
+              clear
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="col-6">
+        <input type="file" multiple value="select" #selectFile
+            (change)="onFileSelected($event)"
+        >
+        <div class="mt-5">
+          <div class="row">
+            <mat-grid-list cols="4" rowHeight="1:1">
+              <mat-grid-tile *ngFor="let file of product.productImages; let i = index;">
+                <div style="position: relative;">
+                    <span class="btn-remove-image" (click)="removeImage(i)">X</span>
+                    <img [src]="file.url" width="100px" height="100px" >
+                </div>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

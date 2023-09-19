@@ -1,0 +1,31 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6">
+            <div class="card image-container p-3">
+                <img [src]="product.productImages[selectedProductIndex].url" class="product-zoom-image" alt="">
+            </div>
+           <mat-grid-list cols="4" gutterSize="10" rowHeight="1:1" class="mt-2">
+            <mat-grid-tile *ngFor="let file of product.productImages; let i = index;" (click)="changeIndex(i)" style="border: 1px solid lightgray; cursor: pointer; ">
+                    <img [src]="file.url"   height="100px">
+            </mat-grid-tile>
+           </mat-grid-list>
+        </div>
+        <div class="col-6">
+            <div class="product-iformation">
+                <div class="heading mt-2">
+                   <h1>{{product.productName}}</h1> 
+                </div>
+                <div class="price">
+                    <h2><b> <span style="color: green;"> ₹ {{product.productDiscountedPrice}}</span></b> &nbsp; <s>{{product.productActualPrice}}</s> </h2>
+                </div>
+                <div class="discription mt-3">
+                   <p> {{product.productDescription}}</p> 
+                </div>
+                <div class="button d-flex justify-content-start">
+                    <button mat-raised-button color="warn" class="me-2" (click)="buyProduct(product.productId)" >Buy Now</button>
+                    <button  class="btn btn-warning">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
